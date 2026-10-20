@@ -1,5 +1,9 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Jomav Client Journey</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -26,7 +30,10 @@
 }
 
 *,*::before,*::after{box-sizing:border-box}
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+[hidden]{display:none!important}
 body{
+  margin:0;
   background:var(--bg); color:var(--fg);
   font:400 16px/1.5 var(--body);
   padding-block:32px 72px;
@@ -128,6 +135,8 @@ h2.plain{font:700 26px/1.1 var(--display)}
 .todo li{border-top:1px solid var(--line);padding-top:10px;font-size:15px}
 .foot{margin-top:48px;font:500 12px/1.5 var(--mono);color:var(--muted)}
 </style>
+</head>
+<body>
 
 <div class="wrap">
   <header>
@@ -348,3 +357,5 @@ h2.plain{font:700 26px/1.1 var(--display)}
   });
 })();
 </script>
+</body>
+</html>
