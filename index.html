@@ -225,11 +225,7 @@ h2.plain{font:700 26px/1.1 var(--display)}
   <section class="stage" id="todo">
     <h2 class="plain">Still to confirm</h2>
     <ul class="todo">
-      <li>“Sites confirm” in the subscription stage: what is confirmed, and by whom?</li>
-      <li>“Promondepicts payment plan”: what is this?</li>
-      <li>“If it's Bungalow” in the external builder path: what changes?</li>
-      <li>Development fee reads “1 million 350 per plot”: is that ₦1,350,000?</li>
-    </ul>
+      <li>“If it's Bungalow” in the external builder path: what changes?</li>    </ul>
   </section>
 
   <p class="foot">Built from the Jomav process notes, 20 Oct 2026. All amounts in naira.</p>
@@ -255,8 +251,8 @@ h2.plain{font:700 26px/1.1 var(--display)}
   };
 
   var S1=[
-    {o:"client",t:"Fills in the subscription form with ID (NIN, voter's card or passport) and a photograph"},
-    {o:"cso",t:"Verifies the NIN"},
+    {o:"client",t:"Fills in the subscription form with ID (NIN, voter's card or passport) and a photograph",side:"The promo sets the payment plan, for example paying every 3 or 4 months"},
+    {o:"cso",t:"Verifies the NIN",side:"Checked on the site Jomav uses for NIN verification"},
     {o:"conf",t:"Confirms the payment and writes “confirmed”",stamp:1},
     {o:"odoo",t:"Generates the receipt"},
     {o:"cso",t:"Takes the file to the accountant"},
@@ -316,7 +312,7 @@ h2.plain{font:700 26px/1.1 var(--display)}
     ["Time to build","3 months","Then the plot is reallocated"],
     ["Reallocation fee","₦50,000"],
     ["Plot size","Ondo 600 sqm","Half plot 300 sqm. Abuja 450 sqm"],
-    ["Development fee","₦1,350,000 per plot","To confirm. Covers infrastructure, survey plan, legal documentation and security"],
+    ["Development fee","₦1,350,000 per plot","Covers infrastructure, survey plan, legal documentation and security"],
     ["Land types","Residential and commercial"]
   ];
 
