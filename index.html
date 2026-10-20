@@ -1,0 +1,350 @@
+<title>Jomav Client Journey</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: one vertical file trail. Stage 3 forks into a company lane and an external-builder lane (side by side on wide screens, stacked on phones), then both lanes meet again for collection. */
+:root{
+  --bg:#F2F4F1; --surface:#FFFFFF; --fg:#15201B; --muted:#56655D; --line:#CBD4CE;
+  --cso:#0E6B58; --confirm:#B42318; --legal:#3A4FB3; --tech:#8F5400; --plain:#46544D;
+  --display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1411; --surface:#151E1A; --fg:#E7EFEA; --muted:#93A59B; --line:#2B3A33;
+    --cso:#4FD1B2; --confirm:#FF8A7A; --legal:#9DB0FF; --tech:#F0B35A; --plain:#B7C4BC;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1411; --surface:#151E1A; --fg:#E7EFEA; --muted:#93A59B; --line:#2B3A33;
+  --cso:#4FD1B2; --confirm:#FF8A7A; --legal:#9DB0FF; --tech:#F0B35A; --plain:#B7C4BC;
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--fg);
+  font:400 16px/1.5 var(--body);
+  padding-block:32px 72px;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap{max-width:1000px;margin:0 auto}
+h1,h2,h3,p,ol,ul,dl,dd{margin:0}
+ol,ul{padding:0;list-style:none}
+
+/* header */
+.eyebrow{font:600 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+h1{font:700 clamp(32px,7vw,52px)/1.02 var(--display);letter-spacing:-.01em;margin-top:12px;text-wrap:balance}
+.lede{margin-top:14px;max-width:52ch;color:var(--muted);font-size:17px}
+.key{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin-top:22px}
+.key .sep{flex-basis:100%;height:0}
+.key small{font-size:13px;color:var(--muted)}
+
+/* chips and stamps */
+.c-cso{--c:var(--cso)} .c-confirm{--c:var(--confirm)} .c-legal{--c:var(--legal)} .c-tech{--c:var(--tech)} .c-plain{--c:var(--plain)}
+.chip{
+  display:inline-block;font:600 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  color:var(--c);border:1px solid var(--c);border-radius:4px;padding:5px 7px;background:transparent;
+}
+@supports (color:color-mix(in srgb,red 10%,transparent)){
+  .chip{background:color-mix(in srgb,var(--c) 12%,transparent);border-color:color-mix(in srgb,var(--c) 45%,transparent)}
+}
+.stamp{
+  display:inline-block;font:600 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--confirm);border:2px solid var(--confirm);border-radius:3px;padding:3px 6px;transform:rotate(-4deg);
+}
+
+/* stages */
+.stage{margin-top:56px}
+.stage-head{display:flex;gap:14px;align-items:flex-start}
+.no{font:700 44px/.9 var(--display);color:var(--muted);min-width:30px}
+.stage-head h2{font:700 26px/1.1 var(--display);text-wrap:balance}
+.stage-head p{margin-top:8px;color:var(--muted);max-width:44ch;font-size:15px}
+.split>.trail,.split>.stage-head{min-width:0}
+.split{display:grid;gap:22px}
+@media (min-width:900px){
+  .split{grid-template-columns:minmax(0,300px) minmax(0,560px);gap:48px}
+  .split>.stage-head{position:sticky;top:calc(env(safe-area-inset-top,0px) + 20px);align-self:start}
+}
+
+/* trail of nodes joined by arrows */
+.trail{display:flex;flex-direction:column}
+.trail>li{position:relative}
+.trail>li+li{margin-top:28px}
+.trail>li+li::before{
+  content:"\2193";position:absolute;left:18px;top:-27px;width:20px;text-align:center;
+  font:500 18px/26px var(--mono);color:var(--muted);
+}
+.node{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;min-width:0}
+.node .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.node .t{font-size:15.5px;line-height:1.45;font-weight:500;overflow-wrap:anywhere}
+.node .side{margin-top:6px;font-size:13.5px;line-height:1.45;color:var(--muted);overflow-wrap:anywhere}
+.signers{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.signers li{border:1px solid var(--line);border-radius:4px;padding:4px 8px;font-size:13px}
+.trail>li.note{margin-top:10px;border:1px dashed var(--muted);border-radius:6px;padding:9px 12px;font:500 12.5px/1.45 var(--mono);color:var(--muted)}
+.trail>li.note::before{display:none}
+
+/* fork */
+.toggle{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-top:18px}
+.toggle button{
+  font:600 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  min-height:42px;padding:0 16px;border:0;background:var(--surface);color:var(--fg);cursor:pointer;
+}
+.toggle button+button{border-left:1px solid var(--line)}
+.toggle button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+button:focus-visible{outline:2px solid var(--cso);outline-offset:2px}
+.lanes{display:grid;gap:18px;margin-top:26px}
+.lane{min-width:0}
+.lane h3{font:700 21px/1.15 var(--display)}
+.lane .sub{margin:6px 0 18px;color:var(--muted);font-size:14.5px}
+.or{text-align:center;font:600 12px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:6px 0}
+@media (min-width:860px){
+  .lanes{grid-template-columns:1fr 1fr;gap:40px}
+  .or{display:none}
+}
+.fork[data-view="company"] #lane-external,
+.fork[data-view="external"] #lane-company,
+.fork:not([data-view="both"]) .or{display:none}
+.fork:not([data-view="both"]) .lanes{grid-template-columns:minmax(0,560px)}
+
+.merge{margin-top:40px;text-align:center;font:600 12px/1.6 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.merge span{display:block;font-size:18px;letter-spacing:0}
+
+/* numbers */
+h2.plain{font:700 26px/1.1 var(--display)}
+.facts{display:grid;gap:12px;margin-top:18px}
+@media (min-width:560px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:960px){.facts{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px;min-width:0}
+.fact dt{font:600 11px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fact dd{margin-top:8px;font:600 17px/1.3 var(--display);overflow-wrap:anywhere}
+.fact dd small{display:block;margin-top:6px;font:400 13px/1.4 var(--body);color:var(--muted)}
+.todo{margin-top:16px;display:grid;gap:10px;max-width:64ch}
+.todo li{border-top:1px solid var(--line);padding-top:10px;font-size:15px}
+.foot{margin-top:48px;font:500 12px/1.5 var(--mono);color:var(--muted)}
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Jomav · Client file path</p>
+    <h1>Jomav Client Journey</h1>
+    <p class="lede">Follow one client file from subscription form to certificate. Each box is an office. Each arrow is a handoff, and most handoffs go back through a CSO.</p>
+    <div class="key" aria-label="Colour key">
+      <span class="chip c-cso">CSO</span>
+      <span class="chip c-confirm">Confirmation</span>
+      <span class="chip c-legal">Legal</span>
+      <span class="chip c-tech">Drawing and checks</span>
+      <span class="chip c-plain">Client and others</span>
+      <span class="sep"></span>
+      <span class="stamp">Confirmed</span>
+      <small>Nothing moves on until the Confirmation dept clears this step.</small>
+    </div>
+  </header>
+
+  <section class="stage split" id="stage-1">
+    <div class="stage-head">
+      <span class="no">1</span>
+      <div>
+        <h2>Subscription</h2>
+        <p>Led by the normal CSO. The client signs up and pays, and Legal drafts the contract of sales.</p>
+      </div>
+    </div>
+    <div id="t1"></div>
+  </section>
+
+  <section class="stage split" id="stage-2">
+    <div class="stage-head">
+      <span class="no">2</span>
+      <div>
+        <h2>Drawing</h2>
+        <p>Led by the construction CSO. The client pays for the drawing before allocation.</p>
+      </div>
+    </div>
+    <div id="t2"></div>
+  </section>
+
+  <section class="stage fork" id="stage-3" data-view="company">
+    <div class="stage-head">
+      <span class="no">3</span>
+      <div>
+        <h2>Who builds the house?</h2>
+        <p>The file now splits in two. Pick a path to follow.</p>
+        <div class="toggle" role="group" aria-label="Show path">
+          <button type="button" data-view="company" aria-pressed="true">Company engineer</button>
+          <button type="button" data-view="external" aria-pressed="false">External engineer</button>
+        </div>
+      </div>
+    </div>
+    <div class="lanes">
+      <article class="lane" id="lane-company">
+        <h3>Jomav builds</h3>
+        <p class="sub">Jomav prices the job, drafts the agreements and issues the certificate.</p>
+        <div id="t3a"></div>
+      </article>
+      <div class="or" aria-hidden="true">or</div>
+      <article class="lane" id="lane-external">
+        <h3>The client brings a builder</h3>
+        <p class="sub">Jomav vets the builder, then Legal prepares three documents.</p>
+        <div id="t3b"></div>
+      </article>
+    </div>
+  </section>
+
+  <div class="merge"><span aria-hidden="true">&darr;</span>Both paths meet here</div>
+
+  <section class="stage split" id="stage-4">
+    <div class="stage-head">
+      <span class="no">4</span>
+      <div>
+        <h2>Collect and build</h2>
+        <p>The certificate is the client's claim on the plot. The clock starts when it is collected.</p>
+      </div>
+    </div>
+    <div id="t4"></div>
+  </section>
+
+  <section class="stage" id="numbers">
+    <h2 class="plain">Numbers to keep in mind</h2>
+    <dl class="facts" id="facts"></dl>
+  </section>
+
+  <section class="stage" id="todo">
+    <h2 class="plain">Still to confirm</h2>
+    <ul class="todo">
+      <li>“Sites confirm” in the subscription stage: what is confirmed, and by whom?</li>
+      <li>“Promondepicts payment plan”: what is this?</li>
+      <li>“If it's Bungalow” in the external builder path: what changes?</li>
+      <li>Development fee reads “1 million 350 per plot”: is that ₦1,350,000?</li>
+    </ul>
+  </section>
+
+  <p class="foot">Built from the Jomav process notes, 20 Oct 2026. All amounts in naira.</p>
+</div>
+
+<script>
+(function(){
+  var OFF={
+    client:{l:"Client",c:"plain"},
+    cso:{l:"CSO",c:"cso"},
+    ccso:{l:"Construction CSO",c:"cso"},
+    conf:{l:"Confirmation dept",c:"confirm"},
+    odoo:{l:"Odoo",c:"plain"},
+    acct:{l:"Accountant",c:"plain"},
+    legal:{l:"Legal",c:"legal"},
+    arch:{l:"Architect dept",c:"tech"},
+    sup:{l:"Supervisor",c:"tech"},
+    qs:{l:"Quantity surveyor",c:"tech"},
+    ic:{l:"Internal control",c:"tech"},
+    eng:{l:"Head of engineering",c:"tech"},
+    bld:{l:"External builder",c:"plain"},
+    sign:{l:"Four signatures",c:"legal"}
+  };
+
+  var S1=[
+    {o:"client",t:"Fills in the subscription form with ID (NIN, voter's card or passport) and a photograph"},
+    {o:"cso",t:"Verifies the NIN"},
+    {o:"conf",t:"Confirms the payment and writes “confirmed”",stamp:1},
+    {o:"odoo",t:"Generates the receipt"},
+    {o:"cso",t:"Takes the file to the accountant"},
+    {o:"acct",t:"Client pays and the receipt is printed"},
+    {o:"cso",t:"Files everything and gives the client a tracking number"},
+    {o:"legal",t:"Prepares the contract of sales"},
+    {o:"cso",t:"Talks the contract through with the client"},
+    {note:"Full payment gets the client a Provisional Letter of Allocation (PLA)"}
+  ];
+
+  var S2=[
+    {o:"client",t:"Pays for the drawing before allocation"},
+    {o:"conf",t:"Confirms the payment",stamp:1},
+    {o:"ccso",t:"Writes the pass"},
+    {o:"arch",t:"Receives the pass, only once the money and drawing are confirmed"},
+    {o:"sup",t:"Signs the pass",side:"One copy stays with the architect, one with the CSO"},
+    {o:"ccso",t:"Gives the building brief to the architect"},
+    {o:"arch",t:"Gets the building details from the client and draws",side:"Meanwhile the construction CSO requests the builder's profile (Jomav provides a builder if the client has none) and confirms all payments"},
+    {o:"arch",t:"Returns the finished drawing to the CSO"}
+  ];
+
+  var S3A=[
+    {o:"client",t:"Pays for the BOQ",side:"Bungalow ₦100,000. Duplex ₦150,000"},
+    {o:"conf",t:"Confirms the BOQ payment",stamp:1},
+    {o:"qs",t:"Prepares the BOQ"},
+    {o:"ccso",t:"Receives the BOQ and sends the builder's request form to the client"},
+    {o:"client",t:"Fills in the builder's request form"},
+    {o:"ccso",t:"Builds the client file",side:"Drawing, BOQ, PLA, contract of sales, subscription form, and every receipt (land, architectural, departmental fee) with its confirmation"},
+    {o:"legal",t:"Prepares the agreements",side:"Construction agreement and building agreement. A payment agreement too if the development fee is not fully paid"},
+    {o:"cso",t:"Gives the printed documents to the client to sign"},
+    {o:"client",t:"Signs the agreements"},
+    {o:"legal",t:"Prepares the certificate"},
+    {o:"sign",t:"Four people sign the certificate",group:["Legal dept","Head of construction","Project auditor","Construction director"]},
+    {note:"About 21 working days from the finished drawing to allocation"}
+  ];
+
+  var S3B=[
+    {o:"client",t:"Requests allocation after paying for the drawing and receives the allocation request form"},
+    {o:"bld",t:"Gets the builder's form and submits his details",side:"A builder who does not qualify is turned down and Jomav tells the client"},
+    {o:"ic",t:"Audits the whole file",side:"Payment, signatures, subscription form, drawing and allocated plot"},
+    {o:"cso",t:"Passes the file on to engineering"},
+    {o:"eng",t:"Signs the builder and engineer form"},
+    {o:"legal",t:"Prepares three documents",side:"Indemnity agreement (signed by the client and the engineer), construction agreement, and a payment agreement if the client has not fully paid"},
+    {o:"legal",t:"Makes the certificate"}
+  ];
+
+  var S4=[
+    {o:"client",t:"Comes to the office and collects the certificate to claim the allocation"},
+    {o:"client",t:"Starts work on the land within 3 months"},
+    {note:"If not, the plot is reallocated and the client pays ₦50,000"}
+  ];
+
+  var FACTS=[
+    ["Minimum payment","₦50,000 to ₦200,000"],
+    ["BOQ fee","Bungalow ₦100,000","Duplex ₦150,000"],
+    ["Drawing to allocation","About 21 working days","Only when Jomav builds"],
+    ["Time to build","3 months","Then the plot is reallocated"],
+    ["Reallocation fee","₦50,000"],
+    ["Plot size","Ondo 600 sqm","Half plot 300 sqm. Abuja 450 sqm"],
+    ["Development fee","₦1,350,000 per plot","To confirm. Covers infrastructure, survey plan, legal documentation and security"],
+    ["Land types","Residential and commercial"]
+  ];
+
+  function esc(s){return String(s).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
+
+  function node(s){
+    if(s.note){return '<li class="note">'+esc(s.note)+'</li>'}
+    var o=OFF[s.o];
+    var h='<li class="node c-'+o.c+'"><div class="top"><span class="chip">'+esc(o.l)+'</span>';
+    if(s.stamp){h+='<span class="stamp">Confirmed</span>'}
+    h+='</div><p class="t">'+esc(s.t)+'</p>';
+    if(s.side){h+='<p class="side">'+esc(s.side)+'</p>'}
+    if(s.group){h+='<ul class="signers">'+s.group.map(function(g){return '<li>'+esc(g)+'</li>'}).join('')+'</ul>'}
+    return h+'</li>';
+  }
+  function trail(arr){return '<ol class="trail">'+arr.map(node).join('')+'</ol>'}
+  function mount(id,html){var el=document.getElementById(id); if(el){el.innerHTML=html}}
+
+  mount("t1",trail(S1));
+  mount("t2",trail(S2));
+  mount("t3a",trail(S3A));
+  mount("t3b",trail(S3B));
+  mount("t4",trail(S4));
+
+  mount("facts",FACTS.map(function(f){
+    return '<div class="fact"><dt>'+esc(f[0])+'</dt><dd>'+esc(f[1])+(f[2]?'<small>'+esc(f[2])+'</small>':'')+'</dd></div>';
+  }).join(''));
+
+  var fork=document.getElementById("stage-3");
+  var btns=fork.querySelectorAll(".toggle button");
+  Array.prototype.forEach.call(btns,function(b){
+    b.addEventListener("click",function(){
+      fork.setAttribute("data-view",b.getAttribute("data-view"));
+      Array.prototype.forEach.call(btns,function(x){
+        x.setAttribute("aria-pressed",x===b?"true":"false");
+      });
+    });
+  });
+})();
+</script>
